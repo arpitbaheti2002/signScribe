@@ -1,0 +1,144 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  width: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+  overflow: hidden;
+  font-family: "Montserrat", sans-serif;
+}
+
+body::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background: url('HomePage.png') center;
+}
+
+.nav{
+  display: flex;
+  width: 80vw;
+  justify-content: space-between;
+}
+
+.nav img {
+  height: 22vh;
+}
+
+.nav-items {
+  display: flex;
+  height: 22vh;
+  align-items: center;
+  gap: 40px;
+  font-size: 3vh;
+  color: #843E71;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.nav-items p {
+  transition: all 0.3s ease;
+}
+
+.nav-items p:hover {
+  scale: 1.1;
+  transition: all 0.3s ease;
+  text-decoration: underline;
+}
+
+.white-background {
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.6);
+  width: 90vw;
+  height: 85vh;
+  display: flex;
+  bottom: -5vh;
+  left: 5vw;
+  border-radius: 60px;
+}
+
+.image {
+  width: 45%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image img {
+  width: 70%;
+}
+
+.heading {
+  display: flex;
+  width: 55%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3vh;
+}
+
+.heading h2 {
+  font-size: 12vh;
+  color: #843E71;
+  text-shadow: #843e71b1 5px 5px 15px;
+}
+
+.heading p {
+  font-size: 3.5vh;
+  font-weight: 600;
+  color: #586166;
+}
+
+.buttons {
+  margin-top: 7vh;
+  width: 35vw;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.btn {
+  height: 7vh;
+  width: 10vw;
+  background-color: #843E71;
+  border: 0;
+  color: white;
+  font-size: 2.4vh;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 5px 5px 20px #843E71;
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  transform: scale(1.1);
+  transition: all 0.3s ease;
+  background-color: #d884b4;
+}
+
+.output {
+  font-size: 8vh;
+  color: #843E71;
+  text-align: center;
+}
+
+.action {
+  width: 30vw;
+  height: 4.5vh;
+  border: 2px solid #843e719e;
+  border-radius: 5px;
+  outline: none;
+  padding: 0 5px;
+  font-size: 3vh;
+  color: #843E71;
+  text-align: center;
+  margin-bottom: 5vh;
+}

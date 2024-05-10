@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./static/styles.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <title>SignScribe</title>
+</head>
+<body>
+    <div class="nav">
+        <div><img src="./static/Signscribe Logo.png"></div>
+        <div class="nav-items">
+            <p onclick="">Home</p>
+            <p onclick="">About</p>
+        </div>
+    </div>
+    
+    <div class="white-background">
+        <div class="image"><img src="./static/human.png"></div>
+        <div class="heading">
+            <h2>SIGNSCRIBE</h2>
+            <p>Bridging Voices, Empowering Lives</p>
+            <div class="language-dropdown">
+                <label for="language">Select Language:</label>
+                <select id="language">
+                    <option value="en">English</option>
+                    <option value="hi">Hindi</option>
+                    <option value="bn">Bengali</option>
+                    <option value="ur">Urdu</option>
+                    <option value="fr">French</option>
+                </select>
+            </div>
+            <div class="buttons">
+                <button class="btn" onclick="startRecognition()">Scan Now!</button>
+                <button class="btn" onclick="takeInput()">Train Model</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        let heading = document.querySelector('.heading');
+        function startRecognition() {
+            const language = document.getElementById('language').value;
+            const requestData = { language: language };
+
+            heading.innerHTML = `
+                <p>Loading the model...</p>
+                <p>Please wait until a Popup appears on the Taskbar</p>
+                <p>To enter your signs</p>`;
+
+            fetch(`/recognize`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(requestData)
+            })
+            .then(response => response.text())
+            .then(data => {
+                heading.innerHTML = `
+                    <p>The user said</p>
+                    <h3 class='output'>${data}</h3>
+                    <button class="btn backbutton" onclick="resetWindow()">Back</button>`;
+            });
+        }
+
+        function takeInput() {
+            heading.innerHTML = `
+                <p>Enter Action to record</p>
+                <input class='action'></input>
+                <div class="buttons">
+                    <button class="btn submit-action" onclick="startImageCollection()">Collect</button>
+                    <button class="btn backbutton" onclick="resetWindow()">Back</button>
+                </div>`;
+        }
+
+        function startImageCollection() {
+            let input = document.querySelector('.action').value;
+            heading.innerHTML = `
+                <p>Loading the model...</p>
+                <p>Please wait until a Popup appears on the Taskbar</p>
+                <p>To record your signs</p>`;
+
+                fetch(`/collect`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ action: input })
+                })
+                .then(response => response.text())
+                .then(data => {
+                    heading.innerHTML = `
+                        <h3 class='output'>${data}</h3>
+                        <div class="buttons">
+                            <button class="btn train-model" onclick="trainModel()">Train</button>
+                            <button class="btn backbutton" onclick="resetWindow()">Back</button>
+                        </div>`;
+                });
+        }
+
+        function trainModel() {
+            heading.innerHTML = `<h3 class='output'>'Your changes will be implemented within a few hours!'</h3>
+                        <button class="btn backbutton" onclick="resetWindow()">Back</button>`;
+        }
+
+        function resetWindow() {
+            heading.innerHTML = `
+            <h2>SIGNSCRIBE</h2>
+            <p>Bridging Voices, Empowering Lives</p>
+            <div class="language-dropdown">
+                <label for="language">Select Language:</label>
+                <select id="language">
+                    <option value="en">English</option>
+                    <option value="hi">Hindi</option>
+                    <option value="bn">Bengali</option>
+                    <option value="ur">Urdu</option>
+                    <option value="fr">French</option>
+                </select>
+            </div>
+            <div class="buttons">
+                <button class="btn" onclick="startRecognition()">Scan Now!</button>
+                <button class="btn" onclick="takeInput()">Train Model</button>
+            </div>
+        `;
+        }
+    </script>
+</body>
+</html>
